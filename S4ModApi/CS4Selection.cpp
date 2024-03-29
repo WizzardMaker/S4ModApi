@@ -46,7 +46,7 @@ BOOL CSettlers4Api::GetSelection(PWORD out, SIZE_T outlen, PSIZE_T selectionCoun
 	auto elementsToCopy = min(ct, outlen);
 	if (selectionCount) *selectionCount = ct;
 	LOG("s->BasePtr == " << HEXNUM(s->BasePtr))
-	if (out && elementsToCopy) memget_s(out, s->BasePtr, elementsToCopy * sizeof(*s->BasePtr));
+		if (out && elementsToCopy) memget_s(out, s->BasePtr, elementsToCopy * sizeof(*s->BasePtr));
 	return TRUE;
 }
 
@@ -59,9 +59,8 @@ BOOL CSettlers4Api::RemoveSelection(PWORD settlers, SIZE_T settlerslen, PSIZE_T 
 	}
 	auto& s = S4::GetInstance().Selection;
 	if (!s) return FALSE;
-	auto ppool = S4::GetInstance().EntityPool;
-	if (!ppool) return FALSE;
-	auto pool = *ppool;
+	auto pool = S4::GetInstance().EntityPool;
+	if (!pool) return FALSE;
 
 	// build a set for settlers to remove
 	std::unordered_set<WORD> removeSet;
@@ -74,7 +73,7 @@ BOOL CSettlers4Api::RemoveSelection(PWORD settlers, SIZE_T settlerslen, PSIZE_T 
 	auto cur = s->BasePtr;
 	for (auto sp = cur; sp < end; ++sp) {
 		if (removeSet.find(*sp) != removeSet.end()) {
-			pool[*sp].clrSelectionVisibility();
+			pool[*sp]->clrSelectionVisibility();
 			continue;
 		}
 		*cur = *sp;
