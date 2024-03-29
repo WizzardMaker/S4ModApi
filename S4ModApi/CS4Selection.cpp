@@ -45,8 +45,8 @@ BOOL CSettlers4Api::GetSelection(PWORD out, SIZE_T outlen, PSIZE_T selectionCoun
 	auto ct = s->count();
 	auto elementsToCopy = min(ct, outlen);
 	if (selectionCount) *selectionCount = ct;
-	LOG("s->BasePtr == " << HEXNUM(s->BasePtr))
-		if (out && elementsToCopy) memget_s(out, s->BasePtr, elementsToCopy * sizeof(*s->BasePtr));
+	LOG("s->BasePtr == " << HEXNUM(s->BasePtr));
+	if (out && elementsToCopy) memget_s(out, s->BasePtr, elementsToCopy * sizeof(*s->BasePtr));
 	return TRUE;
 }
 
